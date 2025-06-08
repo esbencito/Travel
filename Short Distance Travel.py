@@ -1,5 +1,11 @@
-import folium
-from folium import features
+try:
+    import folium
+    from folium import features
+except ModuleNotFoundError as e:
+    raise SystemExit(
+        "This script requires the 'folium' package."
+        " Install it with `pip install folium`."
+    ) from e
 import os
 
 # Define the data for the capitals, including the country codes
@@ -59,13 +65,14 @@ for name, lat, lon, code, country_name in capitals_data:
                     "type": "Feature",
                     "properties": {"name": "Palau"},
                     "geometry": {
-                      "type": "Polygon",
-                     "coordinates": [[
+                        "type": "Polygon",
+                        "coordinates": [[
                             [134.00012, 6.800],  # Bottom-left
                             [134.56012, 7.000],   # Top-left
                             [134.7434, 7.872],    # Top-right
-                            [134.5434, 7.806],   # Bottom-right
-                            [134.46012, 7.5006]   # Back to Bottom-left to close the polygon
+                            [134.5434, 7.806],    # Bottom-right
+                            [134.46012, 7.5006],  # Close to starting point
+                            [134.00012, 6.800]    # Repeat first coordinate to close polygon
                         ]]
                     }
                 }]
